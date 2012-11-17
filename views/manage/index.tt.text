@@ -1,0 +1,15 @@
+.title=Manage Accounts
+
+.youraccount.header=Your Account:
+
+.youraccount.user=Account:
+
+.youraccount.name=Name:
+
+.youraccount.email=Email Address:
+
+.youraccount.setemail=Set
+
+.youraccount.validated.no=Not Confirmed
+
+.youraccount.validated.yes=Confirmed

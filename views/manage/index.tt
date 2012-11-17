@@ -1,0 +1,43 @@
+[%# manage/index.tt
+
+Authors:
+    Simon Waldman <swaldman@firecloud.org.uk>
+
+Copyright (c) 2012 by Dreamwidth Studios, LLC.
+
+This program is free software; you may redistribute it and/or modify it under
+the same terms as Perl itself.  For a copy of the license, please reference
+'perldoc perlartistic' or 'perldoc perlgpl'.
+
+%]
+
+[% sections.title = '.title' | ml %]
+
+<form action='/manage/index' method='get'>
+[% print_authas %]
+</form>
+
+<h1>[% '.youraccount.header' | ml %]</h1>
+
+<div style='margin-left: 2em;'>
+<table summary='' width='50%'>
+<tr><th align='left'>[% '.youraccount.user' | ml %]</th>
+    <td>[% account_username %]</td></tr>
+<tr><th align='left'>[% '.youraccount.name' | ml %]</th>
+    <td>[% account_name %]</td></tr>
+<tr><th align='left'>[% '.youraccount.email' | ml %]</th><td>
+[% IF is_identity_no_email %]
+    <a href='[% SITEROOT %]/changeemail'>[% '.youraccount.setemail' | ml %]
+    </a></td></tr>
+[% ELSE %]
+    [% email %]
+    [% IF email_validated %]
+        ([% '.youraccount.validated.yes' | ml %])
+    [% ELSE %]
+        ([% '.youraccount.validated.no' | ml %])
+    [% END %]
+    </td></tr>
+[% END %]
+
+</table></div>
+

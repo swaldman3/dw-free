@@ -2,6 +2,8 @@
 
 .youraccount.header=Your Account:
 
+.youraccount.header.comm=Your Community:
+
 .youraccount.user=Account:
 
 .youraccount.name=Name:
@@ -13,3 +15,13 @@
 .youraccount.validated.no=Not Confirmed
 
 .youraccount.validated.yes=Confirmed
+
+.settings_pref.title=Settings and Preferences
+
+.settings_pref.note=Choose what information is displayed on your account:
+
+.settings_pref.note.comm=Choose what information is displayed for your community:
+
+.settings_pref.editprofile=Edit Profile
+
+

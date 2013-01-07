@@ -14,30 +14,39 @@ the same terms as Perl itself.  For a copy of the license, please reference
 [% sections.title = '.title' | ml %]
 
 <form action='/manage/index' method='get'>
-[% print_authas %]
+[% print_authas_dropdown %]
 </form>
 
-<h1>[% '.youraccount.header' | ml %]</h1>
+<h1>[% ".youraccount.header$dotcomm" | ml %]</h1>
 
 <div style='margin-left: 2em;'>
 <table summary='' width='50%'>
 <tr><th align='left'>[% '.youraccount.user' | ml %]</th>
     <td>[% account_username %]</td></tr>
 <tr><th align='left'>[% '.youraccount.name' | ml %]</th>
-    <td>[% account_name %]</td></tr>
+    <td>[% account_name | html %]</td></tr>
 <tr><th align='left'>[% '.youraccount.email' | ml %]</th><td>
 [% IF is_identity_no_email %]
-    <a href='[% SITEROOT %]/changeemail'>[% '.youraccount.setemail' | ml %]
+    <a href='[% site.root %]/changeemail'>[% '.youraccount.setemail' | ml %]
     </a></td></tr>
 [% ELSE %]
-    [% email %]
+    [% email %]<em>
     [% IF email_validated %]
         ([% '.youraccount.validated.yes' | ml %])
     [% ELSE %]
         ([% '.youraccount.validated.no' | ml %])
-    [% END %]
+    [% END %]</em>
     </td></tr>
 [% END %]
-
 </table></div>
 
+<table summary='' style="width: 100%; clear:both">
+<tr valign="top"><td style="width: 50%">
+<h1>[% '.settings_pref.title' | ml %]</h1>
+<div style='margin-left: 2em;'>
+[% ".settings_pref.note$dotcomm" | ml %]
+<ul><li><a href="/manage/profile/[%- authas -%]">
+    [% '.settings_pref.editprofile' | ml %]</a></li>
+
+
+</div></td></tr></table>

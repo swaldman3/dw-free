@@ -29,30 +29,32 @@ sub index_handler {
 
     LJ::set_active_crumb('manage');
 
-    my $get_args = DW::Request->get->get_args;
+    my ( $ok, $rv ) = controller( anon => 0, authas => 1 );
+    return $rv unless $ok;
 
-    my $remote = LJ::get_remote();
-    return needlogin() unless $remote;
-    
-    my $authas = $get_args->{authas} || $remote->{user};
-    my $u = LJ::get_authas_user($authas);
+    my $u = $rv->{u};
+    my $remote = $rv->{remote};
+
     return ( error_ml( 'error.invalidauth' ) ) unless $u;
 
-    my $print_authas = LJ::make_authas_select($remote, { authas => $authas });
+    my $print_authas = LJ::make_authas_select($remote, { authas => $u->user });
 
     # Your Account section
     my %account_vars;
-    $account_vars{account_username} = LJ::ljuser( $u );
-    $account_vars{account_name} = LJ::ehtml( $u->{name} );
+    %account_vars = (
+        account_username => LJ::ljuser( $u ),
+        account_name => $u->{name},
+        is_identity_no_email => $u->is_identity && !$u->email_raw,
+        email_validated => $u->{status} eq 'A' ? 1 : 0,
+        email => $u->email_raw,
+    );
 
-    $account_vars{is_identity_no_email} = $u->is_identity && !$u->email_raw;
-    $account_vars{SITEROOT} = LJ::SITEROOT;
-    $account_vars{email_validated} = $u->{status} eq 'A' ? 1 : 0;
-    $account_vars{email} = $u->email_raw;
-
-
+    #Vars to pass to the template
     my $template_vars = {
-        print_authas => $print_authas,
+        print_authas_dropdown => $print_authas,
+        is_comm => $u->is_community,
+        dotcomm => $u->is_community ? '.comm' : '',
+        authas => $u->equals( $remote ) ? '' : "?authas=$u->{user}",
         %account_vars,
     };
 

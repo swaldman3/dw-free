@@ -19,6 +19,8 @@ the same terms as Perl itself.  For a copy of the license, please reference
 
 <h1>[% ".youraccount.header$dotcomm" | ml %]</h1>
 
+[%# Your Account section %]
+
 <div style='margin-left: 2em;'>
 <table summary='' width='50%'>
 <tr><th align='left'>[% '.youraccount.user' | ml %]</th>
@@ -40,13 +42,51 @@ the same terms as Perl itself.  For a copy of the license, please reference
 [% END %]
 </table></div>
 
+[%# Settings & Preferences section %]
+
 <table summary='' style="width: 100%; clear:both">
 <tr valign="top"><td style="width: 50%">
 <h1>[% '.settings_pref.title' | ml %]</h1>
-<div style='margin-left: 2em;'>
 [% ".settings_pref.note$dotcomm" | ml %]
-<ul><li><a href="/manage/profile/[%- authas -%]">
+
+<div style='margin-left: 2em;'>
+<ul>
+<li><a href="[%- site.root -%]/manage/profile/[%- authas -%]">
     [% '.settings_pref.editprofile' | ml %]</a></li>
+<li><a href="[%- site.root -%]/manage/comments/[%- authas -%]">
+    [% '.settings_pref.managecomments' | ml %]</a></li>
+<li><a href="[%- site.root -%]/manage/settings/?cat=display[%- authas2 -%]">
+    [% '.settings_pref.viewingoptions' | ml %]</a></li>
 
+[% UNLESS is_identity OR is_comm %]
+    <li><a href="[%- site.root -%]/changepassword">
+        [% '.settings_pref.changepassword' | ml %]</a></li>
+    <li><a href="[%- site.root -%]/manage/emailpost">
+        [% '.settings_pref.emailpost' | ml %]</a></li>
+    <li><a href="[%- site.root -%]/manage/pubkey">
+        [% '.settings_pref.pubkey' | ml %]</a></li>
+[% END %]
 
+[% IF can_use_esn %]
+	<li><a href="[%- site.root -%]/manage/settings/?cat=notifications[%- authas2 -%]">[% '.settings_pref.notificationopts' | ml %]</a></li>
+[% END %]
+
+[% UNLESS is_comm %]
+	<li><a href="[%- site.root -%]/manage/logins">
+		[% '.settings_pref.managelogins' | ml %]</a></li>
+[% END %]
+
+<li><a href="[%- site.root -%]/accountstatus[%- authas -%]">
+[% IF is_deleted %]
+	[% '.settings_pref.undeleteaccount' | ml %]
+[% ELSE %]
+	[% '.settings_pref.deleteaccount' | ml %]
+[% END %]
+</a></li>
+</div>
+
+[%# Customization section %]
+
+<h1>[% '.cust.title' | ml %]</h1>
+[% ".cust.note$dotcomm" | ml %]
 </div></td></tr></table>

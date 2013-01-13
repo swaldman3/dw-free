@@ -24,4 +24,28 @@
 
 .settings_pref.editprofile=Edit Profile
 
+.settings_pref.managecomments=Manage Comment Settings
+
+.settings_pref.viewingoptions=Viewing Options
+
+.settings_pref.changepassword=Change Password
+
+.settings_pref.emailpost=Mobile Post Settings
+
+.settings_pref.pubkey=PGP/GPG public key
+
+.settings_pref.notificationopts=Manage Notification Options
+
+.settings_pref.managelogins=Manage Logins
+
+.settings_pref.undeleteaccount=Undelete Account
+
+.settings_pref.deleteaccount=Delete Account
+
+.cust.title=Customization
+
+.cust.note=Customize the look of your journal pages:
+
+.cust.note.comm=Customize the look of your community:
+
 

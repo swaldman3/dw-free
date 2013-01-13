@@ -39,9 +39,8 @@ sub index_handler {
 
     my $print_authas = LJ::make_authas_select($remote, { authas => $u->user });
 
-    # Your Account section
-    my %account_vars;
-    %account_vars = (
+    # Things just for Your Account section
+    my %account_vars = (
         account_username => LJ::ljuser( $u ),
         account_name => $u->{name},
         is_identity_no_email => $u->is_identity && !$u->email_raw,
@@ -49,15 +48,25 @@ sub index_handler {
         email => $u->email_raw,
     );
 
+    # Things just for Settings & Prefs section
+    my %settings_prefs = (
+        can_use_esn => $u->can_use_esn,
+        is_deleted => $u->is_deleted,
+    );
+
     #Vars to pass to the template
     my $template_vars = {
         print_authas_dropdown => $print_authas,
+        is_identity => $u->is_identity,
         is_comm => $u->is_community,
         dotcomm => $u->is_community ? '.comm' : '',
         authas => $u->equals( $remote ) ? '' : "?authas=$u->{user}",
+        #authas2: same as authas, but for use where it's not 1st variable
+        authas2 => $u->equals( $remote ) ? '' : "&authas=$u->{user}",
         %account_vars,
+        %settings_prefs,
     };
-
+warn LJ::D($template_vars);
     return DW::Template->render_template( 'manage/index.tt', $template_vars );
 }
 
